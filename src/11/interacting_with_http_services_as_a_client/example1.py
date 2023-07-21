@@ -15,7 +15,7 @@ parms = {
 querystring = parse.urlencode(parms)
 
 # Make a GET request and read the response
-u = request.urlopen(url+'?' + querystring)
+u = request.urlopen(f'{url}?{querystring}')
 resp = u.read()
 
 import json

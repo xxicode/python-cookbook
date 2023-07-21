@@ -2,7 +2,7 @@ class Structure:
     _fields= []
     def __init__(self, *args, **kwargs):
         if len(args) > len(self._fields):
-            raise TypeError('Expected {} arguments'.format(len(self._fields)))
+            raise TypeError(f'Expected {len(self._fields)} arguments')
 
         # Set all of the positional arguments
         for name, value in zip(self._fields, args):
@@ -14,7 +14,7 @@ class Structure:
 
         # Check for any remaining unknown arguments
         if kwargs:
-            raise TypeError('Invalid argument(s): {}'.format(','.join(kwargs)))
+            raise TypeError(f"Invalid argument(s): {','.join(kwargs)}")
         
 # Example use
 if __name__ == '__main__':

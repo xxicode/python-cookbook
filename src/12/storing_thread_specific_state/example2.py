@@ -29,7 +29,7 @@ def test(conn):
         s.send(b'\r\n')
         resp = b''.join(iter(partial(s.recv, 8192), b''))
 
-    print('Got {} bytes'.format(len(resp)))
+    print(f'Got {len(resp)} bytes')
 
     with conn as s1, conn as s2:
         s1.send(b'GET /downloads HTTP/1.0\r\n')
@@ -41,8 +41,8 @@ def test(conn):
         resp1 = b''.join(iter(partial(s1.recv, 8192), b''))
         resp2 = b''.join(iter(partial(s2.recv, 8192), b''))
 
-    print('resp1 got {} bytes'.format(len(resp1)))
-    print('resp2 got {} bytes'.format(len(resp2)))
+    print(f'resp1 got {len(resp1)} bytes')
+    print(f'resp2 got {len(resp2)} bytes')
 
 if __name__ == '__main__':
 

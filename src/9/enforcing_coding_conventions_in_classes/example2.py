@@ -10,9 +10,7 @@ class MatchSignaturesMeta(type):
         for name, value in clsdict.items():
             if name.startswith('_') or not callable(value):
                 continue
-            # Get the previous definition (if any) and compare the signatures
-            prev_dfn = getattr(sup,name,None)
-            if prev_dfn:
+            if prev_dfn := getattr(sup, name, None):
                 prev_sig = signature(prev_dfn)
                 val_sig = signature(value)
                 if prev_sig != val_sig:

@@ -9,7 +9,7 @@ def philosopher(left, right):
 
 # The chopsticks (represented by locks)
 NSTICKS = 5
-chopsticks = [threading.Lock() for n in range(NSTICKS)]
+chopsticks = [threading.Lock() for _ in range(NSTICKS)]
 
 # Create all of the philosophers
 for n in range(NSTICKS):

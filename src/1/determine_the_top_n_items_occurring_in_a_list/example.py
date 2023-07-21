@@ -18,7 +18,7 @@ print(top_three)
 # Example of merging in more words
 
 morewords = ['why','are','you','not','looking','in','my','eyes']
-word_counts.update(morewords)
+word_counts |= morewords
 print(word_counts.most_common(3))
 
 

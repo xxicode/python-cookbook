@@ -8,10 +8,10 @@ def echo_handler(client_sock):
         client_sock.close()
         return
     while True:
-        msg = client_sock.recv(8192)
-        if not msg:
+        if msg := client_sock.recv(8192):
+            client_sock.sendall(msg)
+        else:
             break
-        client_sock.sendall(msg)
 
 def echo_server(address):
     s = socket(AF_INET, SOCK_STREAM)

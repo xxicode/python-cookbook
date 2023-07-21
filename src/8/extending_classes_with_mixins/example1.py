@@ -5,7 +5,7 @@ class LoggedMappingMixin:
     __slots__ = ()
 
     def __getitem__(self, key):
-        print('Getting ' + str(key))
+        print(f'Getting {str(key)}')
         return super().__getitem__(key)
 
     def __setitem__(self, key, value):
@@ -13,7 +13,7 @@ class LoggedMappingMixin:
         return super().__setitem__(key, value)
 
     def __delitem__(self, key):
-        print('Deleting ' + str(key))
+        print(f'Deleting {str(key)}')
         return super().__delitem__(key)
     
 class SetOnceMappingMixin:
@@ -23,7 +23,7 @@ class SetOnceMappingMixin:
     __slots__ = ()
     def __setitem__(self, key, value):
         if key in self:
-            raise KeyError(str(key) + ' already set')
+            raise KeyError(f'{str(key)} already set')
         return super().__setitem__(key, value)
 
 class StringKeysMappingMixin:

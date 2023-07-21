@@ -6,14 +6,10 @@ _sentinel = object()
 
 # A thread that produces data
 def producer(out_q):
-    n = 10
-    while n > 0:
+    for n in range(10, 0, -1):
         # Produce some data
         out_q.put(n)
         time.sleep(2)
-        n -= 1
-
-
     # Put the sentinel on the queue to indicate completion
     out_q.put(_sentinel)
 

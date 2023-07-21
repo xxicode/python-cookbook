@@ -13,7 +13,7 @@ class Typed(Descriptor):
 
     def __set__(self, instance, value):
         if not isinstance(value, self.expected_type):
-            raise TypeError('expected ' + str(self.expected_type))
+            raise TypeError(f'expected {str(self.expected_type)}')
         super().__set__(instance, value)
 
 # Descriptor for enforcing values
@@ -32,7 +32,7 @@ class MaxSized(Descriptor):
 
     def __set__(self, instance, value):
         if len(value) >= self.size:
-            raise ValueError('size must be < ' + str(self.size))
+            raise ValueError(f'size must be < {str(self.size)}')
         super().__set__(instance, value)
 
 class Integer(Typed):

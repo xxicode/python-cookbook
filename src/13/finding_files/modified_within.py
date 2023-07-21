@@ -17,9 +17,9 @@ def modified_within(top, seconds):
 if __name__ == '__main__':
     import sys
     if len(sys.argv) != 3:
-        print('Usage: {} dir seconds'.format(sys.argv[0]))
+        print(f'Usage: {sys.argv[0]} dir seconds')
         raise SystemExit(1)
-    
+
     modified_within(sys.argv[1], float(sys.argv[2]))
 
     

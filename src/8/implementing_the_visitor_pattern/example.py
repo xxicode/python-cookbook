@@ -36,14 +36,14 @@ class Number(Node):
 
 class NodeVisitor:
     def visit(self, node):
-        methname = 'visit_' + type(node).__name__
+        methname = f'visit_{type(node).__name__}'
         meth = getattr(self, methname, None)
         if meth is None:
             meth = self.generic_visit
         return meth(node)
     
     def generic_visit(self, node):
-        raise RuntimeError('No {} method'.format('visit_' + type(node).__name__))
+        raise RuntimeError(f'No visit_{type(node).__name__} method')
 
 # --- Example 1:  An expression evaluator
 

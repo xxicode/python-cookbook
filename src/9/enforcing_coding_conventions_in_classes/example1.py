@@ -4,7 +4,7 @@ class NoMixedCaseMeta(type):
     def __new__(cls, clsname, bases, clsdict):
         for name in clsdict:
             if name.lower() != name:
-                raise TypeError('Bad attribute name: ' + name)
+                raise TypeError(f'Bad attribute name: {name}')
         return super().__new__(cls, clsname, bases, clsdict)
 
 class Root(metaclass=NoMixedCaseMeta):

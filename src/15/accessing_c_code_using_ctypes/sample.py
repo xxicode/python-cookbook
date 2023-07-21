@@ -33,12 +33,12 @@ def divide(x, y):
 class DoubleArrayType:
     def from_param(self, param):
         typename = type(param).__name__
-        if hasattr(self, 'from_'+typename):
-            return getattr(self, 'from_'+typename)(param)
+        if hasattr(self, f'from_{typename}'):
+            return getattr(self, f'from_{typename}')(param)
         elif isinstance(param, ctypes.Array):
             return param
         else:
-            raise TypeError("Can't convert %s" % typename)
+            raise TypeError(f"Can't convert {typename}")
 
     # Cast from array.array objects
     def from_array(self, param):
@@ -49,8 +49,7 @@ class DoubleArrayType:
 
     # Cast from lists/tuples
     def from_list(self, param):
-        val = ((ctypes.c_double)*len(param))(*param)
-        return val
+        return ((ctypes.c_double)*len(param))(*param)
 
     from_tuple = from_list
 

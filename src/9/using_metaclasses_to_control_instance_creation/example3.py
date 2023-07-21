@@ -12,10 +12,9 @@ class Cached(type):
     def __call__(self, *args):
         if args in self.__cache:
             return self.__cache[args]
-        else:
-            obj = super().__call__(*args)
-            self.__cache[args] = obj
-            return obj
+        obj = super().__call__(*args)
+        self.__cache[args] = obj
+        return obj
         
 class Spam(metaclass=Cached):
     def __init__(self, name):

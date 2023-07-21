@@ -8,7 +8,7 @@ class NoDupOrderedDict(OrderedDict):
         super().__init__()
     def __setitem__(self, name, value):
         if name in self:
-            raise TypeError('{} already defined in {}'.format(name, self.clsname))
+            raise TypeError(f'{name} already defined in {self.clsname}')
         super().__setitem__(name, value)
 
 class OrderedMeta(type):

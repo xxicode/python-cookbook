@@ -14,8 +14,9 @@ def Typed(expected_type, cls=None):
     super_set = cls.__set__
     def __set__(self, instance, value):
         if not isinstance(value, expected_type):
-            raise TypeError('expected ' + str(expected_type))
+            raise TypeError(f'expected {str(expected_type)}')
         super_set(self, instance, value)
+
     cls.__set__ = __set__
     return cls
 
@@ -35,13 +36,15 @@ def MaxSized(cls):
             raise TypeError('missing size option')
         self.size = opts['size']
         super_init(self, name, **opts)
+
     cls.__init__ = __init__
 
     super_set = cls.__set__
     def __set__(self, instance, value):
         if len(value) >= self.size:
-            raise ValueError('size must be < ' + str(self.size))
+            raise ValueError(f'size must be < {str(self.size)}')
         super_set(self, instance, value)
+
     cls.__set__ = __set__
     return cls
 

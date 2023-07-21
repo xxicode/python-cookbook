@@ -1,5 +1,5 @@
 def typed_property(name, expected_type):
-    storage_name = '_' + name
+    storage_name = f'_{name}'
 
     @property
     def prop(self):
@@ -10,6 +10,7 @@ def typed_property(name, expected_type):
         if not isinstance(value, expected_type):
             raise TypeError('{} must be a {}'.format(name, expected_type))
         setattr(self, storage_name, value)
+
     return prop
 
 # Example use

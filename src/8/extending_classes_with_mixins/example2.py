@@ -5,7 +5,7 @@ class RestrictKeysMixin:
     
     def __setitem__(self, key, value):
         if not isinstance(key, self.__restrict_key_type):
-            raise TypeError('Keys must be ' + str(self.__restrict_key_type))
+            raise TypeError(f'Keys must be {str(self.__restrict_key_type)}')
         super().__setitem__(key, value)
 
 # Example

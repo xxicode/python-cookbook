@@ -3,8 +3,8 @@ class Structure:
     _fields= []
     def __init__(self, *args, **kwargs):
         if len(args) != len(self._fields):
-            raise TypeError('Expected {} arguments'.format(len(self._fields)))
-       
+            raise TypeError(f'Expected {len(self._fields)} arguments')
+
         # Set the arguments
         for name, value in zip(self._fields, args):
             setattr(self, name, value)
@@ -14,7 +14,7 @@ class Structure:
         for name in extra_args:
             setattr(self, name, kwargs.pop(name))
         if kwargs:
-            raise TypeError('Duplicate values for {}'.format(','.join(kwargs)))
+            raise TypeError(f"Duplicate values for {','.join(kwargs)}")
         
 # Example use
 if __name__ == '__main__':

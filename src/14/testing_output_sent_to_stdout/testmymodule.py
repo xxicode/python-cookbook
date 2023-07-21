@@ -8,7 +8,7 @@ class TestURLPrint(TestCase):
         protocol = 'http'
         host = 'www'
         domain = 'example.com'
-        expected_url = '{}://{}.{}\n'.format(protocol, host, domain)
+        expected_url = f'{protocol}://{host}.{domain}\n'
 
         with patch('sys.stdout', new=StringIO()) as fake_out:
             mymodule.urlprint(protocol, host, domain)

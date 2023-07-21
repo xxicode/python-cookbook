@@ -15,9 +15,7 @@ class VerifyCertSafeTransport(SafeTransport):
         self._ssl_context.verify_mode = ssl.CERT_REQUIRED
 
     def make_connection(self, host):
-        s = super().make_connection((host, {'context': self._ssl_context}))
-
-        return s
+        return super().make_connection((host, {'context': self._ssl_context}))
 
 # Create the client proxy
 s = ServerProxy('https://localhost:15000', 

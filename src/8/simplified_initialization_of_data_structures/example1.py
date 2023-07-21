@@ -3,7 +3,7 @@ class Structure:
     _fields= []
     def __init__(self, *args):
         if len(args) != len(self._fields):
-            raise TypeError('Expected {} arguments'.format(len(self._fields)))
+            raise TypeError(f'Expected {len(self._fields)} arguments')
 
         # Set the arguments
         for name, value in zip(self._fields, args):

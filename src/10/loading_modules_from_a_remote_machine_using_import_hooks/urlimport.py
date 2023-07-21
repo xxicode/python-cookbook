@@ -13,6 +13,7 @@ log = logging.getLogger(__name__)
 
 # Get links from a given URL
 def _get_links(url):
+
     class LinkParser(HTMLParser):
         def handle_starttag(self, tag, attrs):
             if tag == 'a':
@@ -21,7 +22,7 @@ def _get_links(url):
 
     links = set()
     try:
-        log.debug('Getting links from %s' % url)
+        log.debug(f'Getting links from {url}')
         u = urlopen(url)
         parser = LinkParser()
         parser.feed(u.read().decode('utf-8'))
@@ -40,11 +41,11 @@ class UrlMetaFinder(importlib.abc.MetaPathFinder):
         log.debug('find_module: fullname=%r, path=%r', fullname, path)
         if path is None:
             baseurl = self._baseurl
-        else:
-            if not path[0].startswith(self._baseurl):
-                return None
+        elif path[0].startswith(self._baseurl):
             baseurl = path[0]
 
+        else:
+            return None
         parts = fullname.split('.')
         basename = parts[-1]
         log.debug('find_module: baseurl=%r, basename=%r', baseurl, basename)
@@ -56,7 +57,7 @@ class UrlMetaFinder(importlib.abc.MetaPathFinder):
         # Check if it's a package
         if basename in self._links[baseurl]:
             log.debug('find_module: trying package %r', fullname)
-            fullurl = self._baseurl + '/' + basename
+            fullurl = f'{self._baseurl}/{basename}'
             # Attempt to load the package (which accesses __init__.py)
             loader = UrlPackageLoader(fullurl)
             try:
@@ -70,7 +71,7 @@ class UrlMetaFinder(importlib.abc.MetaPathFinder):
             return loader
 
         # A normal module
-        filename = basename + '.py'
+        filename = f'{basename}.py'
         if filename in self._links[baseurl]:
             log.debug('find_module: module %r found', fullname)
             return self._loaders[baseurl]
@@ -110,7 +111,7 @@ class UrlModuleLoader(importlib.abc.SourceLoader):
         pass
 
     def get_filename(self, fullname):
-        return self._baseurl + '/' + fullname.split('.')[-1] + '.py'
+        return f'{self._baseurl}/' + fullname.split('.')[-1] + '.py'
 
     def get_source(self, fullname):
         filename = self.get_filename(fullname)
@@ -126,7 +127,7 @@ class UrlModuleLoader(importlib.abc.SourceLoader):
             return source
         except (HTTPError, URLError) as e:
             log.debug('loader: %r failed.  %s', filename, e)
-            raise ImportError("Can't load %s" % filename)
+            raise ImportError(f"Can't load {filename}")
 
     def is_package(self, fullname):
         return False
@@ -139,7 +140,7 @@ class UrlPackageLoader(UrlModuleLoader):
         mod.__package__ = fullname
 
     def get_filename(self, fullname):
-        return self._baseurl + '/' + '__init__.py'
+        return f'{self._baseurl}/__init__.py'
 
     def is_package(self, fullname):
         return True
@@ -178,7 +179,7 @@ class UrlPathFinder(importlib.abc.PathEntryFinder):
         # Check if it's a package
         if basename in self._links:
             log.debug('find_loader: trying package %r', fullname)
-            fullurl = self._baseurl + '/' + basename
+            fullurl = f'{self._baseurl}/{basename}'
             # Attempt to load the package (which accesses __init__.py)
             loader = UrlPackageLoader(fullurl)
             try:
@@ -190,7 +191,7 @@ class UrlPathFinder(importlib.abc.PathEntryFinder):
             return (loader, [fullurl])
 
         # A normal module
-        filename = basename + '.py'
+        filename = f'{basename}.py'
         if filename in self._links:
             log.debug('find_loader: module %r found', fullname)
             return (self._loader, [])

@@ -1,5 +1,5 @@
 # mymodule.py
 
 def urlprint(protocol, host, domain):
-    url = '{}://{}.{}'.format(protocol, host, domain)
+    url = f'{protocol}://{host}.{domain}'
     print(url)

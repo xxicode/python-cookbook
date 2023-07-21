@@ -10,7 +10,7 @@ class Typed:
 
     def __set__(self, instance, value):
         if not isinstance(value, self._expected_type):
-            raise TypeError('Expected ' +str(self._expected_type))
+            raise TypeError(f'Expected {str(self._expected_type)}')
         instance.__dict__[self._name] = value
 
 class Integer(Typed):

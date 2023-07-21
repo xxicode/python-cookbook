@@ -11,11 +11,11 @@ neg = [n for n in mylist if n < 0]
 print(neg)
 
 # Negative values clipped to 0
-neg_clip = [n if n > 0 else 0 for n in mylist]
+neg_clip = [max(n, 0) for n in mylist]
 print(neg_clip)
 
 # Positive values clipped to 0
-pos_clip = [n if n < 0 else 0 for n in mylist]
+pos_clip = [min(n, 0) for n in mylist]
 print(pos_clip)
 
 # Compressing example

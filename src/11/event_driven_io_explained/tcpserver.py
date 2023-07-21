@@ -38,7 +38,7 @@ class TCPClient(EventHandler):
         self.handler_list.remove(self)
         
     def wants_to_send(self):
-        return True if self.outgoing else False
+        return bool(self.outgoing)
 
     def handle_send(self):
         nsent = self.sock.send(self.outgoing)
@@ -49,11 +49,10 @@ class TCPEchoClient(TCPClient):
         return True
     
     def handle_receive(self):
-        data = self.sock.recv(8192)
-        if not data:
-            self.close()
-        else:
+        if data := self.sock.recv(8192):
             self.outgoing.extend(data)
+        else:
+            self.close()
 
 if __name__ == '__main__':
    handlers = []

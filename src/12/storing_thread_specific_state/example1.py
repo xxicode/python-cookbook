@@ -31,7 +31,7 @@ def test(conn):
         resp = b''.join(iter(partial(s.recv, 8192), b''))
         # conn.__exit__() executes: connection closed
 
-    print('Got {} bytes'.format(len(resp)))
+    print(f'Got {len(resp)} bytes')
 
 if __name__ == '__main__':
     conn = LazyConnection(('www.python.org', 80))

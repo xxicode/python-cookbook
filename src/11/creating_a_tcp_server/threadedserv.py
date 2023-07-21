@@ -12,7 +12,7 @@ if __name__ == '__main__':
     from threading import Thread
     NWORKERS = 16
     serv = TCPServer(('', 20000), EchoHandler)
-    for n in range(NWORKERS):
+    for _ in range(NWORKERS):
         t = Thread(target=serv.serve_forever)
         t.daemon = True
         t.start()

@@ -14,7 +14,7 @@ print(datepat.findall(text))
 # (b) Find all matching dates with capture groups
 datepat = re.compile(r'(\d+)/(\d+)/(\d+)')
 for month, day, year in datepat.findall(text):
-    print('{}-{}-{}'.format(year, month, day))
+    print(f'{year}-{month}-{day}')
 
 # (c) Iterative search
 for m in datepat.finditer(text):

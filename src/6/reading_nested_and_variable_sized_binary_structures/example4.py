@@ -12,10 +12,9 @@ class StructField:
     def __get__(self, instance, cls):
         if instance is None:
             return self
-        else:
-            r =  struct.unpack_from(self.format, 
-                                    instance._buffer, self.offset)
-            return r[0] if len(r) == 1 else r
+        r =  struct.unpack_from(self.format, 
+                                instance._buffer, self.offset)
+        return r[0] if len(r) == 1 else r
 
 class NestedStruct:
     '''
@@ -28,12 +27,11 @@ class NestedStruct:
     def __get__(self, instance, cls):
         if instance is None:
             return self
-        else:
-            data = instance._buffer[self.offset:
-                                    self.offset+self.struct_type.struct_size]
-            result = self.struct_type(data)
-            setattr(instance, self.name, result)
-            return result
+        data = instance._buffer[self.offset:
+                                self.offset+self.struct_type.struct_size]
+        result = self.struct_type(data)
+        setattr(instance, self.name, result)
+        return result
         
 class StructureMeta(type):
     '''
@@ -106,7 +104,7 @@ if __name__ == '__main__':
         polys = []
         with open(filename, 'rb') as f:
             phead = PolyHeader.from_file(f)
-            for n in range(phead.num_polys):
+            for _ in range(phead.num_polys):
                 rec = SizedRecord.from_file(f, '<i')
                 poly = [ (p.x, p.y)
                          for p in rec.iter_as(Point) ]

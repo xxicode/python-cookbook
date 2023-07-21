@@ -9,11 +9,9 @@ class NameLower(ast.NodeVisitor):
         self.lowered_names = lowered_names
 
     def visit_FunctionDef(self, node):
-        # Compile some assignments to lower the constants
-        code = '__globals = globals()\n'
-        code += '\n'.join("{0} = __globals['{0}']".format(name)
-                          for name in self.lowered_names)
-
+        code = '__globals = globals()\n' + '\n'.join(
+            "{0} = __globals['{0}']".format(name) for name in self.lowered_names
+        )
         code_ast = ast.parse(code, mode='exec')
 
         # Inject new statements into the function body

@@ -32,7 +32,7 @@ class ResultHandler:
         self.sequence = 0
     def handler(self, result):
         self.sequence += 1
-        print('[{}] Got: {}'.format(self.sequence, result))
+        print(f'[{self.sequence}] Got: {result}')
 
 r = ResultHandler()
 apply_async(add, (2, 3), callback=r.handler)
@@ -64,7 +64,7 @@ def make_handler():
     while True:
         result = yield
         sequence += 1
-        print('[{}] Got: {}'.format(sequence, result))
+        print(f'[{sequence}] Got: {result}')
 
 handler = make_handler()
 next(handler)    # Advance to the yield
@@ -82,7 +82,7 @@ class SequenceNo:
 
 def handler(result, seq):
     seq.sequence += 1
-    print('[{}] Got: {}'.format(seq.sequence, result))
+    print(f'[{seq.sequence}] Got: {result}')
 
 seq = SequenceNo()
 from functools import partial

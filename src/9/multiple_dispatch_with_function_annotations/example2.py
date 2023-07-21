@@ -18,17 +18,13 @@ class multimethod:
 
     def __call__(self, *args):
         types = tuple(type(arg) for arg in args[1:])
-        meth = self._methods.get(types, None)
-        if meth:
+        if meth := self._methods.get(types, None):
             return meth(*args)
         else:
             return self._default(*args)
         
     def __get__(self, instance, cls):
-        if instance is not None:
-            return types.MethodType(self, instance)
-        else:
-            return self
+        return types.MethodType(self, instance) if instance is not None else self
 
 # Example use
 class Spam:

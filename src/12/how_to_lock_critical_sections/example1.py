@@ -23,9 +23,9 @@ class SharedCounter:
              self._value -= delta
 
 def test(c):
-    for n in range(1000000):
+    for _ in range(1000000):
         c.incr()
-    for n in range(1000000):
+    for _ in range(1000000):
         c.decr()
 
 if __name__ == '__main__':

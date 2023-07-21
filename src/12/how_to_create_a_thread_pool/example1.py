@@ -7,10 +7,10 @@ def echo_client(sock, client_addr):
     '''
     print('Got connection from', client_addr)
     while True:
-        msg = sock.recv(65536)
-        if not msg:
+        if msg := sock.recv(65536):
+            sock.sendall(msg)
+        else:
             break
-        sock.sendall(msg)
     print('Client closed connection')
     sock.close()
 

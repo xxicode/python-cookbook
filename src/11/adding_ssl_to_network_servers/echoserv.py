@@ -19,7 +19,7 @@ def echo_server(address):
     s.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
     s.bind(address)
     s.listen(1)
-    
+
     # Wrap with an SSL layer requiring client certs
     s_ssl = ssl.wrap_socket(s, 
                             keyfile=KEYFILE, 
@@ -33,6 +33,6 @@ def echo_server(address):
             print('Got connection', c, a)
             echo_client(c)
         except Exception as e:
-            print('{}: {}'.format(e.__class__.__name__, e))
+            print(f'{e.__class__.__name__}: {e}')
 
 echo_server(('', 20000))

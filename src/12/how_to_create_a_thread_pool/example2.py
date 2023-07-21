@@ -9,10 +9,10 @@ def echo_client(q):
     sock, client_addr = q.get()
     print('Got connection from', client_addr)
     while True:
-        msg = sock.recv(65536)
-        if not msg:
+        if msg := sock.recv(65536):
+            sock.sendall(msg)
+        else:
             break
-        sock.sendall(msg)
     print('Client closed connection')
     sock.close()
 
@@ -20,7 +20,7 @@ def echo_server(addr, nworkers):
     print('Echo server running at', addr)
     # Launch the client workers
     q = Queue()
-    for n in range(nworkers):
+    for _ in range(nworkers):
         t = Thread(target=echo_client, args=(q,))
         t.daemon = True
         t.start()

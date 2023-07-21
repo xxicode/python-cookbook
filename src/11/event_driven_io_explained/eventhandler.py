@@ -9,7 +9,6 @@ class EventHandler:
 
     def handle_receive(self):
         'Perform the receive operation'
-        pass
 
     def wants_to_send(self):
         'Return True if sending is requested' 
@@ -17,7 +16,6 @@ class EventHandler:
 
     def handle_send(self):
         'Send outgoing data'
-        pass
 
 import select
 

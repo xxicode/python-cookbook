@@ -57,16 +57,16 @@ def daemonize(pidfile, *, stdin='/dev/null',
 
 def main():
     import time
-    sys.stdout.write('Daemon started with pid {}\n'.format(os.getpid()))
+    sys.stdout.write(f'Daemon started with pid {os.getpid()}\n')
     while True:
-        sys.stdout.write('Daemon Alive! {}\n'.format(time.ctime()))
+        sys.stdout.write(f'Daemon Alive! {time.ctime()}\n')
         time.sleep(10)
 
 if __name__ == '__main__':
     PIDFILE = '/tmp/daemon.pid'
 
     if len(sys.argv) != 2:
-        print('Usage: {} [start|stop]'.format(sys.argv[0]), file=sys.stderr)
+        print(f'Usage: {sys.argv[0]} [start|stop]', file=sys.stderr)
         raise SystemExit(1)
 
     if sys.argv[1] == 'start':

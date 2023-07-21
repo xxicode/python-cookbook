@@ -29,9 +29,7 @@ class Point:
         self.y = y
 
 def serialize_instance(obj):
-    d = { '__classname__' : type(obj).__name__ }
-    d.update(vars(obj))
-    return d
+    return { '__classname__' : type(obj).__name__ } | vars(obj)
 
 p = Point(3,4)
 s = json.dumps(p, default=serialize_instance)
@@ -43,15 +41,13 @@ classes = {
 }
 
 def unserialize_object(d):
-    clsname = d.pop('__classname__', None)
-    if clsname:
-        cls = classes[clsname]
-        obj = cls.__new__(cls)
-        for key, value in d.items():
-            setattr(obj, key, value)
-        return obj
-    else:
+    if not (clsname := d.pop('__classname__', None)):
         return d
+    cls = classes[clsname]
+    obj = cls.__new__(cls)
+    for key, value in d.items():
+        setattr(obj, key, value)
+    return obj
 
 a = json.loads(s, object_hook=unserialize_object)
 print(a)

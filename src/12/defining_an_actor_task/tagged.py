@@ -3,8 +3,8 @@ from actor import Actor
 class TaggedActor(Actor):
     def run(self):
         while True:
-             tag, *payload = self.recv()
-             getattr(self,"do_"+tag)(*payload)
+            tag, *payload = self.recv()
+            getattr(self, f"do_{tag}")(*payload)
     
     # Methods correponding to different message tags
     def do_A(self, x):

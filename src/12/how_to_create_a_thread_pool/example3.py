@@ -3,8 +3,7 @@ import urllib.request
 
 def fetch_url(url):
     u = urllib.request.urlopen(url)
-    data = u.read()
-    return data
+    return u.read()
 
 pool = ThreadPoolExecutor(10)
 # Submit work to the pool
